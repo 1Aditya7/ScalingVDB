@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package vector;
+
+service VectorDB {
+  rpc Insert (InsertRequest) returns (InsertReply);
+  rpc Query (QueryRequest) returns (QueryReply);
+  rpc Train (TrainRequest) returns (TrainReply);
+}
+
+message InsertRequest {
+  string vec_id = 1;
+  repeated float vector = 2;
+}
+
+message InsertReply {
+  string status = 1;
+  int32 shard_index = 2;
+}
+
+message QueryRequest {
+  repeated float vector = 1;
+  int32 k = 2;
+}
+
+message QueryReply {
+  repeated int32 ids = 1;
+  repeated float distances = 2;
+}
+
+message TrainRequest {}
+
+message TrainReply {
+  string status = 1;
+}
